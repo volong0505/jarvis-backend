@@ -8,10 +8,10 @@ export class VocabularyTrackerController {
         private readonly service: VocabularyTrackerService
     ) {}
 
-    @Get('/generate-word/:word')
-    async generateWord(@Param() params: { word: string }) {
+    @Get('vocabulary-tracker/generate-word')
+    async generateWord(@Query() req: { word: string }) {
         // Call the service to generate word details
-        const wordDetails = await this.service.generateWord(params.word);
+        const wordDetails = await this.service.generateWord(req.word);
         
         // Return the generated word details
         return {

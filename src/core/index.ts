@@ -1,4 +1,4 @@
 export * from './configs';
-export * from './constants';
+export * from '../_shared/constants';
 export * from './database';
 export * from './repositories'

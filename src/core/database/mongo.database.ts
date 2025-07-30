@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
-import { ENV_MONGODB_URI } from "../constants";
+import { ENV_MONGODB_URI } from "../../_shared/constants";
 
 @Module({
     imports: [

@@ -1,4 +1,4 @@
-import { ENV_CORS_ORIGINS, ENV_MONGODB_URI, ENV_PORT, ENV_GEMINI_API_KEY } from "../constants";
+import { ENV_CORS_ORIGINS, ENV_MONGODB_URI, ENV_PORT, ENV_GEMINI_API_KEY } from "../../_shared/constants";
 
 export const appConfig = {
     port: process.env[ENV_PORT] || 3333,
