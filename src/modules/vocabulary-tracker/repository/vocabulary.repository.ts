@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Vocabulary, VocabularyDocument } from '../schemas/vocabulary.schema';
-import { CreateVocabularyDto } from '../dtos/vocabulary';
+import { Vocabulary, VocabularyDocument } from '../schema/vocabulary.schema';
+import { CreateVocabularyRequest } from '../dto';
 
 @Injectable()
 export class VocabularyRepository {
@@ -12,12 +12,13 @@ export class VocabularyRepository {
     private readonly model: Model<VocabularyDocument>,
   ) {}
 
-  async create(vocab: Partial<CreateVocabularyDto>): Promise<Vocabulary> {
+  async create(vocab: Partial<CreateVocabularyRequest>): Promise<Vocabulary> {
     const _id = new Types.ObjectId()
     return this.model.create({_id, ...vocab, creationDate: new Date});
   }
 
-  async findAllByLanguage(languageCode: string, sortField: string = "createdAt", sortOrder: string = '1'): Promise<Vocabulary[]> {
+  async findAllByLanguage(params: any): Promise<Vocabulary[]> {
+    const { languageCode, sortField, sortOrder } = params;  
     const conditions = {
       languageCode: languageCode,
     }

@@ -71,7 +71,6 @@ export class Vocabulary {
 
   @Prop()
   latestReviewDate?: Date;
-
 }
 
 export const VocabularySchema = SchemaFactory.createForClass(Vocabulary);

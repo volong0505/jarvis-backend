@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { VocabularyRepository } from "../../core";
 import { GeminiService } from "../gemini";
-
+import { CreateVocabularyRequest, CreateVocabularyResponse, FindAllByLanguageResponse, WordsItem } from "./dto";
+import { VocabularyRepository } from "./repository/vocabulary.repository";
 @Injectable()
 export class VocabularyTrackerService {
   constructor (
@@ -26,6 +26,48 @@ export class VocabularyTrackerService {
         category: geminiResponse.category,
         examples: geminiResponse.examples,
         relatedWords: geminiResponse.relatedWords,
+        };
+    }
+
+    async getVocabularyList(): Promise<FindAllByLanguageResponse> {
+        // Fetch the vocabulary list from the repository
+        const params = {
+            languageCode: 'en',
+            sortField: 'createdAt',
+            sortOrder: '1',
+        }
+
+        const rawData = await this.vocabularyRepository.findAllByLanguage(params);
+
+        const data: WordsItem[] = rawData.map(item => ({
+            id: item._id.toString(),
+            word: item.word,
+            meaning: item.meaning,
+            ipa: item.ipa,
+            level: item.level,
+            partsOfSpeech: item.partsOfSpeech,
+            translation: item.translation,
+            pronunciation: item.pronunciation,
+            category: item.category,
+            examples: item.examples || [],
+            relatedWords: item.relatedWords || [],
+        }));        
+        // Return the vocabulary list
+        return {
+            data: data,
+        };
+    } 
+
+    async create(vocab: CreateVocabularyRequest): Promise<CreateVocabularyResponse> {
+        // Create a new vocabulary entry using the repository
+        const newVocabulary = await this.vocabularyRepository.create(vocab);
+        
+        // Return the created vocabulary entry
+        return {
+            success: true,
+            message: 'Vocabulary created successfully',
+            data: {...newVocabulary, _id: newVocabulary._id.toString()},
+            timestamp: new Date().toISOString(),
         };
     }
 }

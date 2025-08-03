@@ -4,7 +4,7 @@ export class FindAllByLanguageRequest {
 
 class WordsItem_Examples {
     sentence!: string;
-    pronunciation!: string | null;
+    pronunciation?: string | null;
     meaning!: string;
 }
 
