@@ -17,16 +17,6 @@ class ExampleDto {
   meaning?: string;
 }
 
-class RelatedWordsDto {
-  @IsString()
-  @IsNotEmpty()
-  word!: string;
-
-  @IsOptional()
-  @IsString()
-  translation?: string;
-}
-
 export class CreateVocabularyRequest {
   @IsString()
   @IsNotEmpty()
@@ -62,17 +52,13 @@ export class CreateVocabularyRequest {
 
   @IsOptional()
   @IsString()
-  category?: string;
+  tags?: string[];
 
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => ExampleDto)
   examples!: ExampleDto[];
 
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => RelatedWordsDto)
-  relatedWords!: RelatedWordsDto[];
 }
 
 export class CreateVocabularyResponse extends CreateResponseDto<VocabularyDto> {}

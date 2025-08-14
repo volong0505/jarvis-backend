@@ -15,17 +15,8 @@ export class Example {
   meaning!: string;
 }
 
-@Schema({ _id: false })
-export class RelatedWords {
-  @Prop({ required: true })
-  word!: string;
-
-  @Prop()
-  translation!: string;
-}
 
 const ExampleSchema = SchemaFactory.createForClass(Example);
-const RelatedWordsSchema = SchemaFactory.createForClass(RelatedWords);
 
 
 @Schema({ timestamps: true })
@@ -58,10 +49,7 @@ export class Vocabulary {
   partsOfSpeech?: string;
   
   @Prop()
-  category?: string;
-
-  @Prop({ type: [RelatedWordsSchema], default: [] })
-  relatedWords!: RelatedWords[]
+  tags?: string[];
 
   @Prop({ type: [ExampleSchema], default: [] })
   examples!: Example[];

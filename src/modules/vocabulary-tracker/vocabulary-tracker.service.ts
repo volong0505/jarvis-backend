@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { GeminiService } from "../gemini";
-import { CreateVocabularyRequest, CreateVocabularyResponse, FindAllByLanguageResponse, WordsItem } from "./dto";
+import { CreateVocabularyRequest, CreateVocabularyResponse, FindAllByLanguageRequest, FindAllByLanguageResponse, WordsItem } from "./dto";
 import { VocabularyRepository } from "./repository/vocabulary.repository";
 @Injectable()
 export class VocabularyTrackerService {
@@ -23,24 +23,24 @@ export class VocabularyTrackerService {
         pronunciation: geminiResponse.pronunciation,
         level: geminiResponse.level,
         partsOfSpeech: geminiResponse.partsOfSpeech,
-        category: geminiResponse.category,
+        tags: geminiResponse.tags,
         examples: geminiResponse.examples,
-        relatedWords: geminiResponse.relatedWords,
         };
     }
 
-    async getVocabularyList(): Promise<FindAllByLanguageResponse> {
+    async getVocabularyList(req: FindAllByLanguageRequest): Promise<FindAllByLanguageResponse> {
         // Fetch the vocabulary list from the repository
         const params = {
             languageCode: 'en',
             sortField: 'createdAt',
-            sortOrder: '1',
+            sortOrder: '-1',
+            keyword: req.keyword || '',
         }
 
         const rawData = await this.vocabularyRepository.findAllByLanguage(params);
 
         const data: WordsItem[] = rawData.map(item => ({
-            id: item._id.toString(),
+            _id: item._id.toString(),
             word: item.word,
             meaning: item.meaning,
             ipa: item.ipa,
@@ -48,9 +48,8 @@ export class VocabularyTrackerService {
             partsOfSpeech: item.partsOfSpeech,
             translation: item.translation,
             pronunciation: item.pronunciation,
-            category: item.category,
+            tags: item.tags,
             examples: item.examples || [],
-            relatedWords: item.relatedWords || [],
         }));        
         // Return the vocabulary list
         return {

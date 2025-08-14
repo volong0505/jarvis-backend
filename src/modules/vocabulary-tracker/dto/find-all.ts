@@ -1,5 +1,5 @@
 export class FindAllByLanguageRequest {
-    languageCode!: string;
+    keyword?: string;
 }
 
 class WordsItem_Examples {
@@ -7,14 +7,8 @@ class WordsItem_Examples {
     pronunciation?: string | null;
     meaning!: string;
 }
-
-class WordsItem_RelatedWords {
-    word!: string;
-    translation!: string;
-}
-
 export class WordsItem {
-    id!: string;
+    _id!: string;
     word!: string;
     meaning!: string;
     ipa!: string;
@@ -22,9 +16,8 @@ export class WordsItem {
     partsOfSpeech?: string;
     translation!: string;
     pronunciation!: string | null;
-    category?: string;
+    tags?: string[];
     examples!: WordsItem_Examples[] | [];
-    relatedWords!: WordsItem_RelatedWords[]
 }
 
 export class FindAllByLanguageResponse {

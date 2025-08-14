@@ -5,11 +5,6 @@ export class Example {
   meaning!: string;
 }
 
-export class RelatedWords {
-  word!: string;
-  translation!: string;
-}
-
 export class VocabularyDto {
   _id!: string
   languageCode!: string; // ISO code like 'en', 'jp'
@@ -20,8 +15,7 @@ export class VocabularyDto {
   pronunciation?: string;
   level?: string;
   partsOfSpeech?: string;
-  category?: string;
-  relatedWords!: RelatedWords[]
+  tags?: string[];
   examples!: Example[];
   creationDate?: Date;
   latestReviewDate?: Date;

@@ -19,8 +19,13 @@ export class VocabularyRepository {
 
   async findAllByLanguage(params: any): Promise<Vocabulary[]> {
     const { languageCode, sortField, sortOrder } = params;  
+    
     const conditions = {
       languageCode: languageCode,
+    }
+
+    if (params.keyword) {
+      conditions['word'] = { $regex: params.keyword, $options: 'i' }; // Case-insensitive search
     }
 
     let query = this.model.find(conditions);
@@ -37,8 +42,8 @@ export class VocabularyRepository {
     return this.model.findOne({ languageCode, word }).exec();
   }
 
-  async findByCategory(languageCode: string, category: string): Promise<Vocabulary[]> {
-    return this.model.find({ languageCode, category }).exec();
+  async findBytags(languageCode: string, tags: string): Promise<Vocabulary[]> {
+    return this.model.find({ languageCode, tags }).exec();
   }
 
   async updateById(id: string, update: Partial<Vocabulary>): Promise<Vocabulary | null> {
