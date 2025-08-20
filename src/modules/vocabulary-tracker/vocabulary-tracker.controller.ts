@@ -34,11 +34,12 @@ export class VocabularyTrackerController {
     async getVocabularyList(@Query() req: FindAllByLanguageRequest): Promise<FindAllByLanguageResponse> {
 
         // Call the service to get the vocabulary list
-        const vocabularyList = await this.service.getVocabularyList(req);
+        const {data, total} = await this.service.getVocabularyList(req);
 
         // Return the vocabulary list
         return {
-            data: vocabularyList.data,
+            data,
+            total,
         };
     }
 

@@ -37,7 +37,10 @@ export class VocabularyTrackerService {
             keyword: req.keyword || '',
         }
 
-        const rawData = await this.vocabularyRepository.findAllByLanguage(params);
+        const [rawData, total] = await Promise.all([
+            this.vocabularyRepository.findAllByLanguage(params),
+            this.vocabularyRepository.countTotal(params)
+        ])
 
         const data: WordsItem[] = rawData.map(item => ({
             _id: item._id.toString(),
@@ -53,7 +56,8 @@ export class VocabularyTrackerService {
         }));        
         // Return the vocabulary list
         return {
-            data: data,
+            data,
+            total
         };
     } 
 

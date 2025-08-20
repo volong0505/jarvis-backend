@@ -38,6 +38,20 @@ export class VocabularyRepository {
     return query.exec();
   }
 
+  async countTotal(params: any): Promise<number> {
+       const { languageCode } = params;  
+    
+    const conditions = {
+      languageCode: languageCode,
+    }
+
+    if (params.keyword) {
+      conditions['word'] = { $regex: params.keyword, $options: 'i' }; // Case-insensitive search
+    }
+    let query = this.model.countDocuments(conditions);
+    return query.exec()
+  }
+
   async findByWord(languageCode: string, word: string): Promise<Vocabulary | null> {
     return this.model.findOne({ languageCode, word }).exec();
   }

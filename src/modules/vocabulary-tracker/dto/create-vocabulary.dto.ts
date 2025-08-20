@@ -48,7 +48,7 @@ export class CreateVocabularyRequest {
 
    @IsOptional()
   @IsString()
-  partsOfSpeech?: string;
+  partsOfSpeech?: string[];
 
   @IsOptional()
   @IsString()

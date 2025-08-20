@@ -46,7 +46,7 @@ export class Vocabulary {
   level?: string;
 
   @Prop()
-  partsOfSpeech?: string;
+  partsOfSpeech?: string[];
   
   @Prop()
   tags?: string[];

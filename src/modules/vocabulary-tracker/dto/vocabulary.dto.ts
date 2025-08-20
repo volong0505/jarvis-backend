@@ -14,7 +14,7 @@ export class VocabularyDto {
   ipa!: string
   pronunciation?: string;
   level?: string;
-  partsOfSpeech?: string;
+  partsOfSpeech?: string[];
   tags?: string[];
   examples!: Example[];
   creationDate?: Date;

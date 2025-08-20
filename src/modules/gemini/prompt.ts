@@ -10,7 +10,7 @@ Dựa trên từ vựng mà tôi yêu cầu, bạn hãy trả về **duy nhất 
     "ipa": string
     "pronunciation": string,
     "level": string,
-    "partsOfSpeech": string,
+    "partsOfSpeech": array of string,
     "tags": array of string,
     "examples":
         {
@@ -35,7 +35,7 @@ Dựa trên từ vựng mà tôi yêu cầu, bạn hãy trả về **duy nhất 
     "ipa": "/ˈɡriːn.haʊs/"
     "pronunciation": "GRIN-hào-s",
     "level": "A2",
-    "partsOfSpeech": "noun",
+    "partsOfSpeech": [noun],
     "tags": ["Environment", "Gardening"],
     "examples": [
         {

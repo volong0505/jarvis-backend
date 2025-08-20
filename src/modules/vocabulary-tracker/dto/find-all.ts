@@ -13,7 +13,7 @@ export class WordsItem {
     meaning!: string;
     ipa!: string;
     level?: string;
-    partsOfSpeech?: string;
+    partsOfSpeech?: string[];
     translation!: string;
     pronunciation!: string | null;
     tags?: string[];
@@ -21,5 +21,6 @@ export class WordsItem {
 }
 
 export class FindAllByLanguageResponse {
-    data!: WordsItem[]
+    data!: WordsItem[];
+    total: number
 }
